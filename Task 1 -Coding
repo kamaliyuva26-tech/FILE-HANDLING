@@ -1,0 +1,63 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+/**
+ * FileHandlingUtility
+ * Demonstrates reading, writing, and modifying text files in Java.
+ */
+public class FileHandlingUtility {
+
+    private static final String FILE_NAME = "sample.txt";
+
+    public static void main(String[] args) {
+        writeToFile();
+        readFromFile();
+        modifyFile();
+        readFromFile();
+    }
+
+    /**
+     * Writes initial content to a text file.
+     */
+    public static void writeToFile() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {
+            writer.write("This is the initial content of the file.");
+            writer.newLine();
+            writer.write("File handling in Java is simple and powerful.");
+            System.out.println("File written successfully.");
+        } catch (IOException e) {
+            System.out.println("Error writing to file: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Reads and displays the content of the text file.
+     */
+    public static void readFromFile() {
+        System.out.println("\nReading file content:");
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading file: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Appends new content to the existing file.
+     */
+    public static void modifyFile() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true))) {
+            writer.newLine();
+            writer.write("This line was added while modifying the file.");
+            System.out.println("\nFile modified successfully.");
+        } catch (IOException e) {
+            System.out.println("Error modifying file: " + e.getMessage());
+        }
+    }
+}
